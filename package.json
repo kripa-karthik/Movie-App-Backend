@@ -1,0 +1,29 @@
+{
+  "name": "Movie-App-Backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kripa-karthik/Movie-App-Backend.git"
+  },
+  "keywords": [],
+  "author": "kripa karthik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kripa-karthik/Movie-App-Backend/issues"
+  },
+  "homepage": "https://github.com/kripa-karthik/Movie-App-Backend#readme",
+  "dependencies": {
+    "@types/node": "^18.0.6",
+    "cors": "^2.8.5",
+    "csv-parse": "^5.3.3",
+    "express": "^4.18.2",
+    "node-fetch": "^3.2.6",
+    "uuid": "^9.0.0"
+  }
+}
