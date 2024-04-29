@@ -7,8 +7,8 @@
       }
     ],
     "routes": [
-      { "handle": "filesystem" , "src": "/movies.csv" },
-      { "src": "/(.*)", "dest": "/server.js" }
-    ]
+        { "src": "/movies.csv", "dest": "/movies.csv" },
+        { "src": "/(.*)", "dest": "/server.js" }
+      ]
   }
   
