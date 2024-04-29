@@ -6,6 +6,8 @@ const { v4: uuid } = require('uuid');
 
 const data = [];
 
+//:\Users\Lenovo\FULL_STACK_PROJECTS\Movie-App-Backend
+
 fs.createReadStream("./movies.csv")
   .pipe(
     parse({
