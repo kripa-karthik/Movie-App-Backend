@@ -7,7 +7,7 @@
       }
     ],
     "routes": [
-        { "src": "/movies.csv", "dest": "/movies.csv" },
+        { "src": "/movies.csv", "dest": "./movies.csv" },
         { "src": "/(.*)", "dest": "/server.js" }
       ]
   }
