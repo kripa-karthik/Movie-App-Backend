@@ -1,8 +1,9 @@
 const express = require('express');
-const cors = require('cors');
-const fs = require("fs");
-const { parse } = require("csv-parse");
-const { v4: uuid } = require('uuid');
+const home=require("./routes/home")
+// const cors = require('cors');
+// const fs = require("fs");
+// const { parse } = require("csv-parse");
+// const { v4: uuid } = require('uuid');
 
 // const data = [];
 
@@ -29,11 +30,9 @@ const { v4: uuid } = require('uuid');
 
 const app = express();
 app.use(express.json());
-app.use(cors())
+// app.use(cors())
 
-app.get('/', (req, res) => {
-  res.send('Hello Express app!')
-});
+app.use("/home",home);
 
 // app.get('/api/movies', (req, res) => {
 //   console.log('movies data');
@@ -71,8 +70,9 @@ app.get('/', (req, res) => {
 //   console.log({ genres1 })
 //   res.json(genres1);
 // })
-
-app.listen(3000, () => {
+ 
+const port=process.env.PORT || 3000;
+app.listen(port, () => {
   console.log('server started');
 });
 
