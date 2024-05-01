@@ -8,7 +8,7 @@ const data = [];
 
 //:\Users\Lenovo\FULL_STACK_PROJECTS\Movie-App-Backend
 
-fs.createReadStream("./movies.csv")
+fs.createReadStream("C:\Users\Lenovo\FULL_STACK_PROJECTS\Movie-App-Backend\movies.csv")
   .pipe(
     parse({
       delimiter: ",",
