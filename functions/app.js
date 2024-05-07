@@ -30,35 +30,36 @@ fs.createReadStream("../movies.csv")
 const app = express();
 app.use(express.json());
 app.use(cors());
+const router=express.Router();
 
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.send('Hello Express app!')
 });
 
-app.get('/api/movies', (req, res) => {
+router.get('/api/movies', (req, res) => {
   console.log('movies data');
   res.json(data)
 });
 
-app.get('/api/movies/search', (req, res) => {
+router.get('/api/movies/search', (req, res) => {
   const query = req.query.s;
   const movie = data.filter(({ name, director_name, writter_name, cast_name }) => name.toLowerCase() === query.toLowerCase() || director_name.toLowerCase() === query.toLowerCase() || writter_name.split(",").find(name => name.toLowerCase() === query.toLowerCase()) || cast_name.split(",").find(name => name.toLowerCase() === query.toLowerCase()));
   res.json(movie);
 })
 
-app.get('/api/movies/genre', (req, res) => {
+router.get('/api/movies/genre', (req, res) => {
   const query = req.query.g;
   const movies = data.filter(({ genre }) => genre === query);
   res.json(movies);
 })
 
-app.get('/api/movies/rating', (req, res) => {
+router.get('/api/movies/rating', (req, res) => {
   const query = req.query.i;
   const movies = data.filter(({ imdb_rating }) => imdb_rating >= query);
   res.json(movies);
 })
 
-app.get('/api/movies/genres', (req, res) => {
+router.get('/api/movies/genres', (req, res) => {
   const genres = data.reduce((acc, cur) => {
     acc = [...acc, { id: uuid(), genre: cur.genre.split(",")[0] }]
     return acc
@@ -72,6 +73,8 @@ app.get('/api/movies/genres', (req, res) => {
   res.json(genres1);
 })
 
+
+app.use('./netlify/functions/api',router);
 module.exports.handler=serverless(app);
  
 const port=process.env.PORT || 3000;
