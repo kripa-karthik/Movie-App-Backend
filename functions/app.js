@@ -1,4 +1,5 @@
 const express = require('express');
+const serverless=require("serverlsess-http");
 const cors = require('cors');
 const fs = require("fs");
 const { parse } = require("csv-parse");
@@ -6,7 +7,7 @@ const { v4: uuid } = require('uuid');
 
 const data = [];
 
-fs.createReadStream("./movies.csv")
+fs.createReadStream("../movies.csv")
   .pipe(
     parse({
       delimiter: ",",
@@ -24,6 +25,7 @@ fs.createReadStream("./movies.csv")
     console.log("parsed csv data:");
     // console.log(data);
   });
+
 
 const app = express();
 app.use(express.json());
@@ -69,9 +71,10 @@ app.get('/api/movies/genres', (req, res) => {
   console.log({ genres1 })
   res.json(genres1);
 })
+
+module.exports.handler=serverless(app);
  
 const port=process.env.PORT || 3000;
 app.listen(port, () => {
   console.log('server started');
 });
-
