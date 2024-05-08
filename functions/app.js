@@ -1,13 +1,13 @@
 const express = require('express');
-const serverless=require("serverlsess-http");
+const serverless=require("serverless-http");
 const cors = require('cors');
+const { v4: uuid } = require('uuid');
 const fs = require("fs");
 const { parse } = require("csv-parse");
-const { v4: uuid } = require('uuid');
 
 const data = [];
 
-fs.createReadStream("../movies.csv")
+fs.createReadStream("./movies.csv")
   .pipe(
     parse({
       delimiter: ",",
@@ -16,16 +16,16 @@ fs.createReadStream("../movies.csv")
     })
   )
   .on("data", function(row) {
+    console.log("Row read:", row);
     data.push(row);
   })
   .on("error", function(error) {
+    console.log("Error while parsing CSV:", error.message);
     console.log(error.message);
   })
   .on("end", function() {
-    console.log("parsed csv data:");
-    // console.log(data);
+    console.log("Parsed CSV data:", data);
   });
-
 
 const app = express();
 app.use(express.json());
@@ -33,12 +33,13 @@ app.use(cors());
 const router=express.Router();
 
 router.get('/', (req, res) => {
-  res.send('Hello Express app!')
+  res.send('Hello Express app!');
 });
 
 router.get('/api/movies', (req, res) => {
   console.log('movies data');
-  res.json(data)
+  // console.log(data);
+  res.json(data);
 });
 
 router.get('/api/movies/search', (req, res) => {
@@ -74,7 +75,7 @@ router.get('/api/movies/genres', (req, res) => {
 })
 
 
-app.use('./netlify/functions/api',router);
+app.use('/.netlify/functions/app',router);
 module.exports.handler=serverless(app);
  
 const port=process.env.PORT || 3000;
