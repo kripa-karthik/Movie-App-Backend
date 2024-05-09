@@ -5,6 +5,7 @@ const { v4: uuid } = require('uuid');
 const fs = require("fs");
 const { parse } = require("csv-parse");
 
+
 const data = [];
 
 fs.createReadStream("./movies.csv")
@@ -24,9 +25,8 @@ fs.createReadStream("./movies.csv")
     console.log(error.message);
   })
   .on("end", function() {
-    console.log("Parsed CSV data:", data);
+    console.log("Parsed CSV data");
   });
-
 const app = express();
 app.use(express.json());
 app.use(cors());
