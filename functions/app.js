@@ -2,31 +2,9 @@ const express = require('express');
 const serverless=require("serverless-http");
 const cors = require('cors');
 const { v4: uuid } = require('uuid');
-const fs = require("fs");
-const { parse } = require("csv-parse");
 
+const data = require("../db/movies");
 
-const data = [];
-
-fs.createReadStream("./movies.csv")
-  .pipe(
-    parse({
-      delimiter: ",",
-      columns: true,
-      ltrim: true,
-    })
-  )
-  .on("data", function(row) {
-    console.log("Row read:", row);
-    data.push(row);
-  })
-  .on("error", function(error) {
-    console.log("Error while parsing CSV:", error.message);
-    console.log(error.message);
-  })
-  .on("end", function() {
-    console.log("Parsed CSV data");
-  });
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -82,3 +60,31 @@ const port=process.env.PORT || 3000;
 app.listen(port, () => {
   console.log('server started');
 });
+
+
+
+
+
+
+
+// const fs = require("fs");
+// const { parse } = require("csv-parse");
+// fs.createReadStream("functions/movies.csv")
+//   .pipe(
+//     parse({
+//       delimiter: ",",
+//       columns: true,
+//       ltrim: true,
+//     })
+//   )
+//   .on("data", function(row) {
+//     console.log("Row read:", row);
+//     data.push(row);
+//   })
+//   .on("error", function(error) {
+//     console.log("Error while parsing CSV:", error.message);
+//     console.log(error.message);
+//   })
+//   .on("end", function() {
+//     console.log("Parsed CSV data");
+//   });
